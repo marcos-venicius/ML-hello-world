@@ -3,14 +3,42 @@
 #include <stdio.h>
 #include <math.h>
 
-float train[][3] = {
+typedef float sample[3];
+
+// modulable by a single neuron
+sample or_train[] = {
     { 0, 0, 0 },
     { 0, 1, 1 },
     { 1, 0, 1 },
     { 1, 1, 1 }
 };
 
-#define train_count sizeof(train) / sizeof(train[0])
+// modulable by a single neuron
+sample and_train[] = {
+    { 0, 0, 0 },
+    { 0, 1, 0 },
+    { 1, 0, 0 },
+    { 1, 1, 1 }
+};
+
+// modulable by a single neuron
+sample nand_train[] = {
+    { 0, 0, 1 },
+    { 0, 1, 1 },
+    { 1, 0, 1 },
+    { 1, 1, 0 }
+};
+
+// NOT modulable by a single neuron
+sample xor_train[] = {
+    { 0, 0, 0 },
+    { 0, 1, 1 },
+    { 1, 0, 1 },
+    { 1, 1, 0 }
+};
+
+sample *train = nand_train;
+size_t train_count = 4;
 
 float sigmoidf(float x)
 {
@@ -79,9 +107,7 @@ int main(int argc, char** argv)
     {
         for (size_t j = 0; j < 2; j++)
         {
-            int expected = (int)((float)(j + i) / 2 + 0.5f);
-
-            printf("%zu | %zu = %f, expected = %d\n", i, j, sigmoidf(i*w1 + j*w2 + b), expected);
+            printf("%zu | %zu = %f\n", i, j, sigmoidf(i*w1 + j*w2 + b));
         }
     }
 
