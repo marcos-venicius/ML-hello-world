@@ -29,15 +29,7 @@ sample nand_train[] = {
     { 1, 1, 0 }
 };
 
-// NOT modulable by a single neuron
-sample xor_train[] = {
-    { 0, 0, 0 },
-    { 0, 1, 1 },
-    { 1, 0, 1 },
-    { 1, 1, 0 }
-};
-
-sample *train = nand_train;
+sample *train;
 size_t train_count = 4;
 
 float sigmoidf(float x)
@@ -68,14 +60,11 @@ float cost(float w1, float w2, float b)
     return result / train_count;
 }
 
-float predict(float w1, float w2, float n1, float n2)
+void predict(char* label, char symbol, sample data[])
 {
-    return n1*w1 + n2*w2;
-}
+    printf("\n%s:\n", label);
 
-int main(int argc, char** argv)
-{
-    srand(time(0));
+    train = data;
 
     float w1 = random_float();
     float w2 = random_float();
@@ -99,17 +88,21 @@ int main(int argc, char** argv)
 
     }
 
-    printf("Train count: %ld\n", iterations);
-    printf("w1 = %f, w2 = %f, b = %f, c = %f\n", w1, w2, b, cost(w1, w2, b));
-    printf("\nPERFORMANCE:\n\n");
+    printf("\ncost = %f\n", cost(w1, w2, b));
+    printf("\nPREDICTIONS:\n\n");
 
     for (size_t i = 0; i < 2; i++)
     {
         for (size_t j = 0; j < 2; j++)
         {
-            printf("%zu | %zu = %f\n", i, j, sigmoidf(i*w1 + j*w2 + b));
+            printf("%zu %c %zu = %f\n", i, symbol, j, sigmoidf(i*w1 + j*w2 + b));
         }
     }
+}
 
-    return 0;
+int main(int argc, char** argv)
+{
+    predict("And", '&', and_train);
+    predict("Nand", '~', nand_train);
+    predict("Or", '|', or_train);
 }
