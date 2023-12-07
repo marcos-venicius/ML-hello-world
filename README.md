@@ -18,8 +18,17 @@ Running `main.c`:
 gcc main.c -lm -o main && ./main
 ```
 
+Output demonstration:
+
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/5d0aef19-9439-4717-9147-9aea26b308c2)
+
+
 Running `deep-learning.c`:
 
 ```shell
 gcc deep-learning.c -lm -o deep-learning && ./deep-learning
 ```
+
+Output demonstration:
+
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/80b88e85-910c-4c4f-bfbe-528f66eb1776)
