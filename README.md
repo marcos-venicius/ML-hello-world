@@ -8,7 +8,7 @@ This algorithms is not capable to learn `XOR` because `XOR` cannot be linearly s
 
 So, to do this job, we need more neurons.
 
-So, the `deep-learning.c`l file has a "more complex" ML algorithm with 3 neurons and 9 parameters that can handle `OR`, `AND`, `NAND` and `XOR`.
+So, the `deep-learning.c` file has a "more complex" ML algorithm with 3 neurons and 9 parameters that can handle `OR`, `AND`, `NAND` and `XOR`.
 
 ## How to run?
 
