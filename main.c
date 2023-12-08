@@ -5,6 +5,13 @@
 
 typedef float sample[3];
 
+typedef struct
+{
+    float w1;
+    float w2;
+    float b;
+} Model;
+
 // modulable by a single neuron
 sample or_train[] = {
     { 0, 0, 0 },
@@ -60,44 +67,48 @@ float cost(float w1, float w2, float b)
     return result / train_count;
 }
 
+Model train_model()
+{
+    Model model;
+
+    model.w1 = random_float();
+    model.w2 = random_float();
+    model.b = random_float();
+
+    float eps = 1e-3;
+    float rate = 1e-1;
+    size_t epochs = 2000*2000;
+
+    for (size_t i = 0; i < epochs; i++)
+    {
+        float c = cost(model.w1, model.w2, model.b);
+
+        float dw1 = (cost(model.w1 + eps, model.w2, model.b) - c) / eps;
+        float dw2 = (cost(model.w1, model.w2 + eps, model.b) - c) / eps;
+        float db = (cost(model.w1, model.w2, model.b + eps) - c) / eps;
+
+        model.w1 -= rate*dw1;
+        model.w2 -= rate*dw2;
+        model.b -= rate*db;
+    }
+
+    return model;
+}
+
 void predict(char* label, char symbol, sample data[])
 {
     printf("\n%s:\n", label);
 
     train = data;
 
-    float w1 = random_float();
-    float w2 = random_float();
-    float b = random_float();
+    Model model = train_model();
 
-    float eps = 1e-3;
-    float rate = 1e-1;
-    size_t iterations = 2000*2000;
-
-    for (size_t i = 0; i < iterations; i++)
-    {
-        float c = cost(w1, w2, b);
-
-        float dw1 = (cost(w1 + eps, w2, b) - c) / eps;
-        float dw2 = (cost(w1, w2 + eps, b) - c) / eps;
-        float db = (cost(w1, w2, b + eps) - c) / eps;
-
-        w1 -= rate*dw1;
-        w2 -= rate*dw2;
-        b -= rate*db;
-
-    }
-
-    printf("\ncost = %f\n", cost(w1, w2, b));
+    printf("\ncost = %f\n", cost(model.w1, model.w2, model.b));
     printf("\nPREDICTIONS:\n\n");
 
     for (size_t i = 0; i < 2; i++)
-    {
         for (size_t j = 0; j < 2; j++)
-        {
-            printf("%zu %c %zu = %f\n", i, symbol, j, sigmoidf(i*w1 + j*w2 + b));
-        }
-    }
+            printf("%zu %c %zu = %f\n", i, symbol, j, sigmoidf(i * model.w1 + j * model.w2 + model.b));
 }
 
 int main(int argc, char** argv)
