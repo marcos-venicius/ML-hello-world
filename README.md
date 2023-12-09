@@ -35,3 +35,14 @@ gcc deep-learning.c -lm -o deep-learning && ./deep-learning
 Output demonstration:
 
 ![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/80b88e85-910c-4c4f-bfbe-528f66eb1776)
+
+Running `dynamic-deep-learning.c`:
+
+```shell
+gcc dynamic-deep-learning.c -lm -o dynamic-deep-learning && ./dynamic-deep-learning
+```
+
+Output demonstration:
+
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/e5a81dcb-3d4f-4ca1-836c-312c97ed6a5a)
+
