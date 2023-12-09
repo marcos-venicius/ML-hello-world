@@ -10,11 +10,11 @@ $$a_2 = x_1 \cdot w_{21} + x_2 \cdot w_{22} + b_2$$
 
 The activation from the first layer:
 
-$$ \sigma \begin{pmatrix} \begin{bmatrix} x_{11} & x_{12} \end{bmatrix} \cdot \begin{bmatrix} w_{11} & w_{12} \\ w_{21} & w_{22} \end{bmatrix} + \begin{bmatrix} b_{11} & b_{12} \end{bmatrix} \end{pmatrix} = \begin{bmatrix} a_{11} & a_{12} \end{bmatrix} $$
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/ad9e30b0-a3f2-4c0d-b430-7c31f84035aa)
 
 The activation to the second layer:
 
-$$ \sigma \begin{pmatrix} \begin{bmatrix} a_{11} & a_{12} \end{bmatrix} \cdot \begin{bmatrix} w_{11} \\ w_{21} \end{bmatrix} + \begin{bmatrix} b_{11} \end{bmatrix} \end{pmatrix} = y $$
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/3c1afba2-4f93-4adc-9a49-6918ab23f245)
 
 **we can only multiply matrices if the number of columns of the first matrix is equal to the number of rows of the second matrix.**
 
