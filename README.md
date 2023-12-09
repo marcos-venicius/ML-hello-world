@@ -44,5 +44,5 @@ gcc dynamic-deep-learning.c -lm -o dynamic-deep-learning && ./dynamic-deep-learn
 
 Output demonstration:
 
-![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/e5a81dcb-3d4f-4ca1-836c-312c97ed6a5a)
+![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/5cbb37f5-9b5f-4eaa-ac1a-cb9c8576c3ca)
 
