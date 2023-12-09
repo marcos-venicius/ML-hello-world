@@ -2,6 +2,22 @@
 
 **Notice this code is only to educational purposes, do not use it to any type of production ready application**
 
+
+## Explanation
+
+$$a_1 = x_1 \cdot w_{11} + x_2 \cdot w_{12} + b_1$$
+$$a_2 = x_1 \cdot w_{21} + x_2 \cdot w_{22} + b_2$$
+
+The activation from the first layer:
+
+$$ \sigma \begin{pmatrix} \begin{bmatrix} x_{11} & x_{12} \end{bmatrix} \cdot \begin{bmatrix} w_{11} & w_{12} \\ w_{21} & w_{22} \end{bmatrix} + \begin{bmatrix} b_{11} & b_{12} \end{bmatrix} \end{pmatrix} = \begin{bmatrix} a_{11} & a_{12} \end{bmatrix} $$
+
+The activation to the second layer:
+
+$$ \sigma \begin{pmatrix} \begin{bmatrix} a_{11} & a_{12} \end{bmatrix} \cdot \begin{bmatrix} w_{11} \\ w_{21} \end{bmatrix} + \begin{bmatrix} b_{11} \end{bmatrix} \end{pmatrix} = y $$
+
+**we can only multiply matrices if the number of columns of the first matrix is equal to the number of rows of the second matrix.**
+
 The `main.c` file has a basic ML algorithm that can learn `OR`, `AND` and `NAND` operations.
 
 This algorithms is not capable to learn `XOR` because `XOR` cannot be linearly separated.
@@ -45,62 +61,3 @@ gcc dynamic-deep-learning.c -lm -o dynamic-deep-learning && ./dynamic-deep-learn
 Output demonstration:
 
 ![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/5cbb37f5-9b5f-4eaa-ac1a-cb9c8576c3ca)
-
-## Annotations
-
-$$a_1 = x_1 \cdot w_{11} + x_2 \cdot w_{12} + b_1$$
-$$a_2 = x_1 \cdot w_{21} + x_2 \cdot w_{22} + b_2$$
-
-The activation from the first layer:
-
-$$
-\sigma
-\begin{pmatrix}
-    \begin{bmatrix}
-        x_{11} & x_{12}
-    \end{bmatrix}
-
-    \cdot
-
-    \begin{bmatrix}
-        w_{11} & w_{12}
-        \\
-        w_{21} & w_{22}
-    \end{bmatrix}
-    +
-    \begin{bmatrix}
-        b_{11} & b_{12}
-    \end{bmatrix}
-\end{pmatrix}
-=
-\begin{bmatrix}
-    a_{11} & a_{12}
-\end{bmatrix}
-$$
-
-The activation to the second layer:
-
-$$
-\sigma
-\begin{pmatrix}
-    \begin{bmatrix}
-        a_{11} & a_{12}
-    \end{bmatrix}
-
-    \cdot
-
-    \begin{bmatrix}
-        w_{11}
-        \\
-        w_{21}
-    \end{bmatrix}
-    +
-    \begin{bmatrix}
-        b_{11}
-    \end{bmatrix}
-\end{pmatrix}
-=
-y
-$$
-
-**we can only multiply matrices if the number of columns of the first matrix is equal to the number of rows of the second matrix.**
