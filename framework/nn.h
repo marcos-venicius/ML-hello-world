@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <math.h>
 
 #ifndef NN_MALLOC
 #include <stdlib.h>
@@ -18,21 +19,26 @@ typedef struct
 {
     size_t rows;
     size_t cols;
+    size_t stride;
     float *es;
     // pointer to the beginning of the array
     // this will be an array of floats and rows & cols with determine the shape of the matrix
 } Mat;
 
-#define MAT_AT(matrix, row, col) (matrix).es[(row) * (matrix).cols + (col)]
-#define MAT_PRINT(m) mat_print(m, #m);
+#define MAT_AT(matrix, row, col) (matrix).es[(row) * (matrix).stride + (col)]
+#define MAT_PRINT(m) mat_print(m, #m)
 
 float rand_float(void);
+float sigmoidf(float x);
 
 Mat mat_alloc(size_t rows, size_t cols);
 void mat_rand(Mat m, float low, float high);
+Mat mat_row(Mat m, size_t row);
+void mat_copy(Mat dest, Mat src);
 void mat_fill(Mat m, float value);
 void mat_dot(Mat dest, Mat a, Mat b); // the result of the "dot product" with be in matrix dest to avoice memory allocation
 void mat_sum(Mat dest, Mat a);        // the result of the "sum" with be in matrix dest to avoice memory allocation
+void mat_sig(Mat m);
 void mat_print(Mat m, const char *name);
 
 #endif // NN_H_
@@ -44,12 +50,18 @@ float rand_float(void)
     return (float)rand() / (float)RAND_MAX;
 }
 
+float sigmoidf(float x)
+{
+    return 1.f / (1.f + expf(-x));
+}
+
 Mat mat_alloc(size_t rows, size_t cols)
 {
     Mat m;
 
     m.rows = rows;
     m.cols = cols;
+    m.stride = cols;
     m.es = NN_MALLOC(sizeof(*m.es) * rows * cols); // "*m.es" if i change the type of "es" i don't need to update this piece of code
 
     NN_ASSERT(m.es != NULL);
@@ -90,6 +102,26 @@ void mat_dot(Mat dest, Mat a, Mat b)
     }
 }
 
+Mat mat_row(Mat m, size_t row)
+{
+    return (Mat)
+    {
+        .rows = 1,
+        .cols = m.cols,
+        .stride = m.stride,
+        .es = &MAT_AT(m, row, 0),
+    };
+}
+
+void mat_copy(Mat dest, Mat src)
+{
+    NN_ASSERT(dest.rows == src.rows);
+    NN_ASSERT(dest.cols == src.cols);
+
+    for (size_t i = 0; i < dest.cols * dest.rows; i++)
+        dest.es[i] = src.es[i];
+}
+
 // the result of the "sum" with be in matrix dest to avoice memory allocation
 void mat_sum(Mat dest, Mat a)
 {
@@ -98,6 +130,12 @@ void mat_sum(Mat dest, Mat a)
 
     for (size_t i = 0; i < dest.rows * dest.cols; i++)
         dest.es[i] += a.es[i];
+}
+
+void mat_sig(Mat m)
+{
+    for (size_t i = 0; i < m.cols * m.rows; i++)
+        m.es[i] = sigmoidf(m.es[i]);
 }
 
 void mat_print(Mat m, const char *name)
