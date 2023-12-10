@@ -24,6 +24,7 @@ typedef struct
 } Mat;
 
 #define MAT_AT(matrix, row, col) (matrix).es[(row) * (matrix).cols + (col)]
+#define MAT_PRINT(m) mat_print(m, #m);
 
 float rand_float(void);
 
@@ -32,7 +33,7 @@ void mat_rand(Mat m, float low, float high);
 void mat_fill(Mat m, float value);
 void mat_dot(Mat dest, Mat a, Mat b); // the result of the "dot product" with be in matrix dest to avoice memory allocation
 void mat_sum(Mat dest, Mat a);        // the result of the "sum" with be in matrix dest to avoice memory allocation
-void mat_print(Mat m);
+void mat_print(Mat m, const char *name);
 
 #endif // NN_H_
 
@@ -99,18 +100,18 @@ void mat_sum(Mat dest, Mat a)
         dest.es[i] += a.es[i];
 }
 
-void mat_print(Mat m)
+void mat_print(Mat m, const char *name)
 {
-    printf("\n");
+    printf("\n%s = [\n", name);
     for (size_t row = 0; row < m.rows; row++)
     {
         for (size_t col = 0; col < m.cols; col++)
         {
-            printf("%f ", MAT_AT(m, row, col));
+            printf("  %f ", MAT_AT(m, row, col));
         }
         printf("\n");
     }
-    printf("\n");
+    printf("]\n");
 }
 
 #endif // NN_IMPLEMENTAION
