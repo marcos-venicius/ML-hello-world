@@ -5,17 +5,68 @@
 
 ## Explanation
 
-$$a_1 = x_1 \cdot w_{11} + x_2 \cdot w_{12} + b_1$$
-$$a_2 = x_1 \cdot w_{21} + x_2 \cdot w_{22} + b_2$$
+```math
+a_1 = x_1 \cdot w_{11} + x_2 \cdot w_{12} + b_1
+```
+```math
+a_2 = x_1 \cdot w_{21} + x_2 \cdot w_{22} + b_2
+```
 
 The activation from the first layer:
 
-![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/ad9e30b0-a3f2-4c0d-b430-7c31f84035aa)
+```math
+\sigma
+\begin{pmatrix}
+  \begin{bmatrix}
+    x_{11} & x_{12}
+  \end{bmatrix}
+
+  \cdot
+
+  \begin{bmatrix}
+    w_{11} & w_{12}
+    \\
+    w_{21} & w_{22}
+  \end{bmatrix}
+
+  +
+
+  \begin{bmatrix}
+    b_{11} & b_{12}
+  \end{bmatrix}
+\end{pmatrix}
+=
+\begin{bmatrix}
+  a_{11} & a_{12}
+\end{bmatrix}
+```
 
 The activation to the second layer:
 
-![image](https://github.com/marcos-venicius/ML-hello-world/assets/94018427/3c1afba2-4f93-4adc-9a49-6918ab23f245)
+```math
+\sigma
+\begin{pmatrix}
+  \begin{bmatrix}
+    a_{11} & a_{12}
+  \end{bmatrix}
 
+  \cdot
+
+  \begin{bmatrix}
+    w_{11}
+    \\
+    w_{12}
+  \end{bmatrix}
+
+  +
+
+  \begin{bmatrix}
+    b_{11}
+  \end{bmatrix}
+\end{pmatrix}
+=
+y
+```
 **we can only multiply matrices if the number of columns of the first matrix is equal to the number of rows of the second matrix.**
 
 The `main.c` file has a basic ML algorithm that can learn `OR`, `AND` and `NAND` operations.
